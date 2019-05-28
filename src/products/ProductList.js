@@ -1,29 +1,55 @@
 import React, { Component } from 'react';
-import {Form, Button, Table} from 'react-bootstrap';
-
+import {Image, Table} from 'react-bootstrap';
+import faker from 'faker';
 
 class ProductList extends Component{
      
+ 
 //   method care returneaza o lista de produse
 // 
 
-getProducts(){
-    // class Products
-    // bonus npm-> faker   generate products()
-    return ([{
-        photo: "./images/p1.jph",
-        name: 'iofone',
-        price:{
-            amount:100,
-            currency:"USD"
-        },
-        rating: 4.5,
-        promo: true
-    }])
+// getProducts(){
+//     // class Products
+//     // bonus npm-> faker   generate products()
+//     return ([{
+//         photo: "./images/p1.jph",
+//         name: 'iofone',
+//         price:{
+//             amount:100,
+//             currency:"USD"
+//         },
+//         rating: 4.5,
+//         promo: true
+//     }])
+// }
+
+genProduct(){
+  let {product} = this.state;
+  product.push(
+    {
+      photo: faker.image.technics(),
+      name: faker.commerce.productName(),
+      price: {
+        amount: "faker.commerce.price()",
+        currency: "USD"
+      },
+      rating: faker.random.number(),
+      promo: false
+    }
+  )
+  this.setState({product});
+  console.log(this.state);
 }
+ 
 
 
     render(){
+      
+      for(let i = 0 ; i<5 ; i++){
+        this.genProduct()
+      }
+
+
         return(
             <div className="container md-3">
                 <Table striped bordered hover>
@@ -36,27 +62,11 @@ getProducts(){
     </tr>
   </thead>
   <tbody>
-
-
-      {/* ciclu de afisare a produsului */}
-    <tr>
-      <td>1</td> 
-      {/* if promo - sa se evidentieze */}
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colSpan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+          <tr>
+            <td>{this.state.product[0].name}</td>
+          </tr>
+ 
+     
   </tbody>
 </Table>
                 
@@ -66,3 +76,16 @@ getProducts(){
 }
 
 export default ProductList;
+
+class Products{
+  constructor(){
+  this.photo= faker.image.technics();
+  this.name= faker.commerce.productName();
+  this.price={
+    amount:faker.commerce.price(),
+    currency:"USD"
+      };
+  this.rating; 4.5;
+  this.promo; true;
+  }
+}
