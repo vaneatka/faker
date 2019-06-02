@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Image, Table} from 'react-bootstrap';
 import faker from 'faker';
+import Product from './Product'
+
 
 class ProductList extends Component{
      
@@ -8,44 +10,36 @@ class ProductList extends Component{
 //   method care returneaza o lista de produse
 // 
 
-getProducts(){
-    // class Products
-    // bonus npm-> faker   generate products()
-    let m = new Products();
-    return (
-      m
-    )
+getProducts(){  
+    
+    let products = [];
+    faker.locale="ru"
+    while(products.length<10){
+      products.push ({
+    photo: faker.image.technics(100,100, true),    
+    name: faker.commerce.productName(500, 5000),
+    price:{
+      amount:faker.commerce.price(),
+      currency:"USD"
+        },
+    rating: (Math.random()*5).toFixed(1),
+    promo: true    
+  })}
+  return products
 }
+
     render(){
-      let rows = []
-      for(let i = 0 ; i<5 ; i++){
-        let prod = this.getProducts()
-        var row = [];
-        row.push(<td> <img src={prod.photo} alt="img" height="250px"/> </td>);
-        row.push( <td>{prod.name} </td>);
-        row.push( <td>{prod.price.amount} {prod.price.currency} </td>);
-        row.push( <td>{prod.rating} </td>);
-        rows.push(<tr key={i}> {row} </tr>);          
+
+      let data = this.getProducts();
+      let list = [];
+
+      for (var i = 0; i< data.length;i++){
+        list.push(<Product data={data[i]} mode= "admin"/>)
       }
 
         return(
-            <div className="container md-3">
-                <Table striped bordered hover>
-  <thead>
-    <tr>
-      <th>Photo</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Rating</th>
-    </tr>
-  </thead>
-  <tbody>
-
-          {rows}
-
-  </tbody>
-</Table>
-                
+            <div className="container ">
+              {list}
             </div>
         )
     }
@@ -53,15 +47,15 @@ getProducts(){
 
 export default ProductList;
 
-class Products{
-  constructor(){
-  this.photo= faker.image.technics();
-  this.name= faker.commerce.productName();
-  this.price={
-    amount:faker.commerce.price(),
-    currency:"USD"
-      };
-  this.rating= 4.5;
-  this.promo= true;
-  }
-}
+// class Products{
+//   constructor(){
+//   this.photo= faker.image.technics();
+//   this.name= faker.commerce.productName();
+//   this.price={
+//     amount:faker.commerce.price(),
+//     currency:"USD"
+//       };
+//   this.rating= 4.5;
+//   this.promo= true;
+//   }
+// }
