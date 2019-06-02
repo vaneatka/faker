@@ -1,0 +1,55 @@
+<script>    
+
+    $cities = [
+        {name: "Chisinau"},
+        {name: "Orhei"},
+        {name: "Balti"},
+        {name: "Strasheni"},
+    ];
+
+    $roads = [
+        {from: 0, to: 1, distance: 50},
+        {from: 1, to: 2, distance: 100},
+        {from: 0, to: 3, distance: 25},
+        {from: 2, to: 3, distance: 150},
+    ]
+
+
+    // functie (oras oras) daca exista drum, sa existe distanta  +  drum indirect
+    //functie de afisat orasele care sunt conectate prin cel mai scurt drum
+
+    // se da oras functie(chisinau, (raza))-orasele din raza respectiva
+
+</script>
+
+
+<script>
+        // legatura / edge
+    road = {
+            distance: 50,
+            good: false,       
+           }
+    // nodul_1 / vertex
+        city_a ={
+            name: "Chisinau",
+            population: 750000,
+            }
+    // nodul_2 / vertex
+    city_b ={
+        name: "Orhei",
+        population: 200000,
+       }
+    
+    
+    city_a.road = road;
+    road.from = city_a;
+    city_b.road = road;
+    road.to = city_b;
+    
+    document.write(city_a.name + " "+ city_a.population + "<br/>");
+    document.write(city_b.name + " "+ city_b.population + "<br/>") ;
+    
+    // parcurgem drumul din city_a, in city_b
+    document.write(city_a.road.to.name+ "<br/>")
+    document.write(city_b.road.from.name+ "<br/>")
+    </script>
