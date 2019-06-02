@@ -8,47 +8,25 @@ class ProductList extends Component{
 //   method care returneaza o lista de produse
 // 
 
-// getProducts(){
-//     // class Products
-//     // bonus npm-> faker   generate products()
-//     return ([{
-//         photo: "./images/p1.jph",
-//         name: 'iofone',
-//         price:{
-//             amount:100,
-//             currency:"USD"
-//         },
-//         rating: 4.5,
-//         promo: true
-//     }])
-// }
-
-genProduct(){
-  let {product} = this.state;
-  product.push(
-    {
-      photo: faker.image.technics(),
-      name: faker.commerce.productName(),
-      price: {
-        amount: "faker.commerce.price()",
-        currency: "USD"
-      },
-      rating: faker.random.number(),
-      promo: false
-    }
-  )
-  this.setState({product});
-  console.log(this.state);
+getProducts(){
+    // class Products
+    // bonus npm-> faker   generate products()
+    let m = new Products();
+    return (
+      m
+    )
 }
- 
-
-
     render(){
-      
+      let rows = []
       for(let i = 0 ; i<5 ; i++){
-        this.genProduct()
+        let prod = this.getProducts()
+        var row = [];
+        row.push(<td> <img src={prod.photo} alt="img" height="250px"/> </td>);
+        row.push( <td>{prod.name} </td>);
+        row.push( <td>{prod.price.amount} {prod.price.currency} </td>);
+        row.push( <td>{prod.rating} </td>);
+        rows.push(<tr key={i}> {row} </tr>);          
       }
-
 
         return(
             <div className="container md-3">
@@ -62,11 +40,9 @@ genProduct(){
     </tr>
   </thead>
   <tbody>
-          <tr>
-            <td>{this.state.product[0].name}</td>
-          </tr>
- 
-     
+
+          {rows}
+
   </tbody>
 </Table>
                 
@@ -85,7 +61,7 @@ class Products{
     amount:faker.commerce.price(),
     currency:"USD"
       };
-  this.rating; 4.5;
-  this.promo; true;
+  this.rating= 4.5;
+  this.promo= true;
   }
 }
